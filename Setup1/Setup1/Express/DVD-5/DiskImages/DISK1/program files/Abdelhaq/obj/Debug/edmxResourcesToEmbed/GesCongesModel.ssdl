@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Gestion_CongesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Conge">
+    <Key>
+      <PropertyRef Name="Matricule" />
+    </Key>
+    <Property Name="Matricule" Type="int" Nullable="false" />
+    <Property Name="DateDebut" Type="date" />
+    <Property Name="Duree" Type="int" />
+    <Property Name="DateFin" Type="date" />
+    <Property Name="TypeConge" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="GesEmploye">
+    <Key>
+      <PropertyRef Name="Matricule" />
+    </Key>
+    <Property Name="Matricule" Type="int" Nullable="false" />
+    <Property Name="Nom" Type="varchar" MaxLength="30" />
+    <Property Name="Prenom" Type="varchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Stock_Conge">
+    <Key>
+      <PropertyRef Name="Matricule" />
+    </Key>
+    <Property Name="Matricule" Type="int" Nullable="false" />
+    <Property Name="NbrJours" Type="int" />
+  </EntityType>
+  <Association Name="FK__Conge__Matricule__4BAC3F29">
+    <End Role="GesEmploye" Type="Self.GesEmploye" Multiplicity="1" />
+    <End Role="Conge" Type="Self.Conge" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="GesEmploye">
+        <PropertyRef Name="Matricule" />
+      </Principal>
+      <Dependent Role="Conge">
+        <PropertyRef Name="Matricule" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Stock_Con__Matri__5CD6CB2B">
+    <End Role="GesEmploye" Type="Self.GesEmploye" Multiplicity="1" />
+    <End Role="Stock_Conge" Type="Self.Stock_Conge" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="GesEmploye">
+        <PropertyRef Name="Matricule" />
+      </Principal>
+      <Dependent Role="Stock_Conge">
+        <PropertyRef Name="Matricule" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Gestion_CongesModelStoreContainer">
+    <EntitySet Name="Conge" EntityType="Self.Conge" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GesEmploye" EntityType="Self.GesEmploye" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Stock_Conge" EntityType="Self.Stock_Conge" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Conge__Matricule__4BAC3F29" Association="Self.FK__Conge__Matricule__4BAC3F29">
+      <End Role="GesEmploye" EntitySet="GesEmploye" />
+      <End Role="Conge" EntitySet="Conge" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Stock_Con__Matri__5CD6CB2B" Association="Self.FK__Stock_Con__Matri__5CD6CB2B">
+      <End Role="GesEmploye" EntitySet="GesEmploye" />
+      <End Role="Stock_Conge" EntitySet="Stock_Conge" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

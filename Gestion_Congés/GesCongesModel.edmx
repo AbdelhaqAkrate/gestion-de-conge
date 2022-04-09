@@ -1,0 +1,197 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Gestion_CongesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Conge">
+          <Key>
+            <PropertyRef Name="Matricule" />
+          </Key>
+          <Property Name="Matricule" Type="int" Nullable="false" />
+          <Property Name="DateDebut" Type="date" />
+          <Property Name="Duree" Type="int" />
+          <Property Name="DateFin" Type="date" />
+          <Property Name="TypeConge" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="GesEmploye">
+          <Key>
+            <PropertyRef Name="Matricule" />
+          </Key>
+          <Property Name="Matricule" Type="int" Nullable="false" />
+          <Property Name="Nom" Type="varchar" MaxLength="30" />
+          <Property Name="Prenom" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Stock_Conge">
+          <Key>
+            <PropertyRef Name="Matricule" />
+          </Key>
+          <Property Name="Matricule" Type="int" Nullable="false" />
+          <Property Name="NbrJours" Type="int" />
+        </EntityType>
+        <Association Name="FK__Conge__Matricule__4BAC3F29">
+          <End Role="GesEmploye" Type="Self.GesEmploye" Multiplicity="1" />
+          <End Role="Conge" Type="Self.Conge" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="GesEmploye">
+              <PropertyRef Name="Matricule" />
+            </Principal>
+            <Dependent Role="Conge">
+              <PropertyRef Name="Matricule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Stock_Con__Matri__5CD6CB2B">
+          <End Role="GesEmploye" Type="Self.GesEmploye" Multiplicity="1" />
+          <End Role="Stock_Conge" Type="Self.Stock_Conge" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="GesEmploye">
+              <PropertyRef Name="Matricule" />
+            </Principal>
+            <Dependent Role="Stock_Conge">
+              <PropertyRef Name="Matricule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Gestion_CongesModelStoreContainer">
+          <EntitySet Name="Conge" EntityType="Self.Conge" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GesEmploye" EntityType="Self.GesEmploye" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stock_Conge" EntityType="Self.Stock_Conge" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Conge__Matricule__4BAC3F29" Association="Self.FK__Conge__Matricule__4BAC3F29">
+            <End Role="GesEmploye" EntitySet="GesEmploye" />
+            <End Role="Conge" EntitySet="Conge" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Stock_Con__Matri__5CD6CB2B" Association="Self.FK__Stock_Con__Matri__5CD6CB2B">
+            <End Role="GesEmploye" EntitySet="GesEmploye" />
+            <End Role="Stock_Conge" EntitySet="Stock_Conge" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Gestion_CongesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Stock_Conge">
+          <Key>
+            <PropertyRef Name="Matricule" />
+          </Key>
+          <Property Name="Matricule" Type="Int32" Nullable="false" />
+          <Property Name="NbrJours" Type="Int32" />
+          <NavigationProperty Name="GesEmploye" Relationship="Gestion_CongesModel.FK__Stock_Con__Matri__4E88ABD4" FromRole="Stock_Conge" ToRole="GesEmploye" />
+        </EntityType>
+        <EntityContainer Name="Gestion_CongesEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Stock_Conge" EntityType="Self.Stock_Conge" />
+          <EntitySet Name="GesEmployes" EntityType="Gestion_CongesModel.GesEmploye" />
+          <AssociationSet Name="FK__Stock_Con__Matri__4E88ABD4" Association="Gestion_CongesModel.FK__Stock_Con__Matri__4E88ABD4">
+            <End Role="GesEmploye" EntitySet="GesEmployes" />
+            <End Role="Stock_Conge" EntitySet="Stock_Conge" />
+          </AssociationSet>
+          <EntitySet Name="Conges" EntityType="Gestion_CongesModel.Conge" />
+          <AssociationSet Name="FK__Conge__Matricule__4BAC3F29" Association="Gestion_CongesModel.FK__Conge__Matricule__4BAC3F29">
+            <End Role="GesEmploye" EntitySet="GesEmployes" />
+            <End Role="Conge" EntitySet="Conges" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="GesEmploye">
+          <Key>
+            <PropertyRef Name="Matricule" />
+          </Key>
+          <Property Name="Matricule" Type="Int32" Nullable="false" />
+          <Property Name="Nom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Prenom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Stock_Conge" Relationship="Gestion_CongesModel.FK__Stock_Con__Matri__4E88ABD4" FromRole="GesEmploye" ToRole="Stock_Conge" />
+          <NavigationProperty Name="Conge" Relationship="Gestion_CongesModel.FK__Conge__Matricule__4BAC3F29" FromRole="GesEmploye" ToRole="Conge" />
+        </EntityType>
+        <Association Name="FK__Stock_Con__Matri__4E88ABD4">
+          <End Type="Gestion_CongesModel.GesEmploye" Role="GesEmploye" Multiplicity="1" />
+          <End Type="Gestion_CongesModel.Stock_Conge" Role="Stock_Conge" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="GesEmploye">
+              <PropertyRef Name="Matricule" />
+            </Principal>
+            <Dependent Role="Stock_Conge">
+              <PropertyRef Name="Matricule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Conge">
+          <Key>
+            <PropertyRef Name="Matricule" />
+          </Key>
+          <Property Name="Matricule" Type="Int32" Nullable="false" />
+          <Property Name="DateDebut" Type="DateTime" Precision="0" />
+          <Property Name="Duree" Type="Int32" />
+          <Property Name="DateFin" Type="DateTime" Precision="0" />
+          <Property Name="TypeConge" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="GesEmploye" Relationship="Gestion_CongesModel.FK__Conge__Matricule__4BAC3F29" FromRole="Conge" ToRole="GesEmploye" />
+        </EntityType>
+        <Association Name="FK__Conge__Matricule__4BAC3F29">
+          <End Type="Gestion_CongesModel.GesEmploye" Role="GesEmploye" Multiplicity="1" />
+          <End Type="Gestion_CongesModel.Conge" Role="Conge" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="GesEmploye">
+              <PropertyRef Name="Matricule" />
+            </Principal>
+            <Dependent Role="Conge">
+              <PropertyRef Name="Matricule" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Gestion_CongesModelStoreContainer" CdmEntityContainer="Gestion_CongesEntities">
+          <EntitySetMapping Name="Stock_Conge">
+            <EntityTypeMapping TypeName="Gestion_CongesModel.Stock_Conge">
+              <MappingFragment StoreEntitySet="Stock_Conge">
+                <ScalarProperty Name="Matricule" ColumnName="Matricule" />
+                <ScalarProperty Name="NbrJours" ColumnName="NbrJours" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GesEmployes">
+            <EntityTypeMapping TypeName="Gestion_CongesModel.GesEmploye">
+              <MappingFragment StoreEntitySet="GesEmploye">
+                <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+                <ScalarProperty Name="Nom" ColumnName="Nom" />
+                <ScalarProperty Name="Matricule" ColumnName="Matricule" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Conges">
+            <EntityTypeMapping TypeName="Gestion_CongesModel.Conge">
+              <MappingFragment StoreEntitySet="Conge">
+                <ScalarProperty Name="TypeConge" ColumnName="TypeConge" />
+                <ScalarProperty Name="DateFin" ColumnName="DateFin" />
+                <ScalarProperty Name="Duree" ColumnName="Duree" />
+                <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
+                <ScalarProperty Name="Matricule" ColumnName="Matricule" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

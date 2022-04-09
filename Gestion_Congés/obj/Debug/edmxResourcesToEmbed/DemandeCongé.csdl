@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Demande_Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DemandeConge">
+    <Key>
+      <PropertyRef Name="Matricule" />
+    </Key>
+    <Property Name="Matricule" Type="Int32" Nullable="false" />
+    <Property Name="Nom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Prenom" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Type_Conge" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Duree" Type="Int32" />
+    <Property Name="Date_Debut" Type="DateTime" Precision="0" />
+    <Property Name="Remarques" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityContainer Name="DemandeEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DemandeConges" EntityType="Self.DemandeConge" />
+  </EntityContainer>
+</Schema>

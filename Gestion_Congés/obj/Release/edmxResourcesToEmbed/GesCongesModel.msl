@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Gestion_CongesModelStoreContainer" CdmEntityContainer="Gestion_CongesEntities">
+    <EntitySetMapping Name="Stock_Conge">
+      <EntityTypeMapping TypeName="Gestion_CongesModel.Stock_Conge">
+        <MappingFragment StoreEntitySet="Stock_Conge">
+          <ScalarProperty Name="Matricule" ColumnName="Matricule" />
+          <ScalarProperty Name="NbrJours" ColumnName="NbrJours" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GesEmployes">
+      <EntityTypeMapping TypeName="Gestion_CongesModel.GesEmploye">
+        <MappingFragment StoreEntitySet="GesEmploye">
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Matricule" ColumnName="Matricule" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Conges">
+      <EntityTypeMapping TypeName="Gestion_CongesModel.Conge">
+        <MappingFragment StoreEntitySet="Conge">
+          <ScalarProperty Name="TypeConge" ColumnName="TypeConge" />
+          <ScalarProperty Name="DateFin" ColumnName="DateFin" />
+          <ScalarProperty Name="Duree" ColumnName="Duree" />
+          <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
+          <ScalarProperty Name="Matricule" ColumnName="Matricule" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

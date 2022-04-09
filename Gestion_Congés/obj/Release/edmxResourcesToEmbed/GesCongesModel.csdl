@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Gestion_CongesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Stock_Conge">
+    <Key>
+      <PropertyRef Name="Matricule" />
+    </Key>
+    <Property Name="Matricule" Type="Int32" Nullable="false" />
+    <Property Name="NbrJours" Type="Int32" />
+    <NavigationProperty Name="GesEmploye" Relationship="Gestion_CongesModel.FK__Stock_Con__Matri__4E88ABD4" FromRole="Stock_Conge" ToRole="GesEmploye" />
+  </EntityType>
+  <EntityContainer Name="Gestion_CongesEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Stock_Conge" EntityType="Self.Stock_Conge" />
+    <EntitySet Name="GesEmployes" EntityType="Gestion_CongesModel.GesEmploye" />
+    <AssociationSet Name="FK__Stock_Con__Matri__4E88ABD4" Association="Gestion_CongesModel.FK__Stock_Con__Matri__4E88ABD4">
+      <End Role="GesEmploye" EntitySet="GesEmployes" />
+      <End Role="Stock_Conge" EntitySet="Stock_Conge" />
+    </AssociationSet>
+    <EntitySet Name="Conges" EntityType="Gestion_CongesModel.Conge" />
+    <AssociationSet Name="FK__Conge__Matricule__4BAC3F29" Association="Gestion_CongesModel.FK__Conge__Matricule__4BAC3F29">
+      <End Role="GesEmploye" EntitySet="GesEmployes" />
+      <End Role="Conge" EntitySet="Conges" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="GesEmploye">
+    <Key>
+      <PropertyRef Name="Matricule" />
+    </Key>
+    <Property Name="Matricule" Type="Int32" Nullable="false" />
+    <Property Name="Nom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="Prenom" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Stock_Conge" Relationship="Gestion_CongesModel.FK__Stock_Con__Matri__4E88ABD4" FromRole="GesEmploye" ToRole="Stock_Conge" />
+    <NavigationProperty Name="Conge" Relationship="Gestion_CongesModel.FK__Conge__Matricule__4BAC3F29" FromRole="GesEmploye" ToRole="Conge" />
+  </EntityType>
+  <Association Name="FK__Stock_Con__Matri__4E88ABD4">
+    <End Type="Gestion_CongesModel.GesEmploye" Role="GesEmploye" Multiplicity="1" />
+    <End Type="Gestion_CongesModel.Stock_Conge" Role="Stock_Conge" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="GesEmploye">
+        <PropertyRef Name="Matricule" />
+      </Principal>
+      <Dependent Role="Stock_Conge">
+        <PropertyRef Name="Matricule" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Conge">
+    <Key>
+      <PropertyRef Name="Matricule" />
+    </Key>
+    <Property Name="Matricule" Type="Int32" Nullable="false" />
+    <Property Name="DateDebut" Type="DateTime" Precision="0" />
+    <Property Name="Duree" Type="Int32" />
+    <Property Name="DateFin" Type="DateTime" Precision="0" />
+    <Property Name="TypeConge" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="GesEmploye" Relationship="Gestion_CongesModel.FK__Conge__Matricule__4BAC3F29" FromRole="Conge" ToRole="GesEmploye" />
+  </EntityType>
+  <Association Name="FK__Conge__Matricule__4BAC3F29">
+    <End Type="Gestion_CongesModel.GesEmploye" Role="GesEmploye" Multiplicity="1" />
+    <End Type="Gestion_CongesModel.Conge" Role="Conge" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="GesEmploye">
+        <PropertyRef Name="Matricule" />
+      </Principal>
+      <Dependent Role="Conge">
+        <PropertyRef Name="Matricule" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
